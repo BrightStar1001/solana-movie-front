@@ -2,7 +2,7 @@ import bs58 from 'bs58'
 import * as web3 from '@solana/web3.js'
 import { Movie } from '../models/Movie'
 
-const MOVIE_REVIEW_PROGRAM_ID = 'CenYq6bDRB7p73EjsPEpiYN7uveyPUTdXkDkgUduboaN'
+const MOVIE_REVIEW_PROGRAM_ID = 'DAyZqvBjAE5rmFo9baQ9Hivzt3yRxepHVUHVqHrGdjSW'
 
 export class MovieCoordinator {
     static accounts: web3.PublicKey[] = []
@@ -13,18 +13,18 @@ export class MovieCoordinator {
             {
                 dataSlice: { offset: 2, length: 18 },
                 filters: search === '' ? [] : [
-                    { 
-                        memcmp: 
-                            { 
-                                offset: 6, 
-                                bytes: bs58.encode(Buffer.from(search))
-                            }
+                    {
+                        memcmp:
+                        {
+                            offset: 6,
+                            bytes: bs58.encode(Buffer.from(search))
+                        }
                     }
                 ]
             }
         )
 
-        accounts.sort( (a, b) => {
+        accounts.sort((a, b) => {
             const lengthA = a.account.data.readUInt32LE(0)
             const lengthB = b.account.data.readUInt32LE(0)
             const dataA = a.account.data.slice(4, 4 + lengthA)
